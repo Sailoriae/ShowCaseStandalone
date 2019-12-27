@@ -40,6 +40,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 
+import org.bukkit.block.data.type.WallSign;
+import org.bukkit.block.BlockFace;
+
 
 public class Utilities {
 
@@ -202,52 +205,23 @@ public class Utilities {
     }
 
     /**
-     * From https://github.com/davboecki/SignCodePad/blob/master/de/davboecki/signcodepad/event/SignCreate.java
-     * but changed by kellerkindt
+     * From https://www.spigotmc.org/threads/getting-block-behind-sign-in-1-14.370340/
      *
      * @param sign The Sign
      * @return The block where the sign is placed on
      */
     public static Block getBlockBehind(Sign sign) {
-        Location signloc = sign.getBlock().getLocation();
-        double   x       = -1;
-        double   y       = signloc.getY();
-        double   z       = -1;
+		try {
+			Block                    signBlock = sign.getBlock();
+			WallSign signData  = (WallSign) signBlock.getState().getBlockData();
+			BlockFace                attached  = signData.getFacing().getOppositeFace();
+			
+			Block blockAttached = signBlock.getRelative(attached);;
 
-        switch ((int) sign.getRawData()) {
-            //west
-            case 2:
-                x = signloc.getX();
-                z = signloc.getZ() + 1;
-
-                break;
-
-            //east
-            case 3:
-                x = signloc.getX();
-                z = signloc.getZ() - 1;
-
-                break;
-
-            //south
-            case 4:
-                x = signloc.getX() + 1;
-                z = signloc.getZ();
-
-                break;
-
-            //north
-            case 5:
-                x = signloc.getX() - 1;
-                z = signloc.getZ();
-
-                break;
-            default:
-                return null;
-
-        }
-
-        return sign.getBlock().getWorld().getBlockAt(new Location(sign.getBlock().getWorld(), x, y, z));
+			return blockAttached;
+		} catch ( Exception e ) {
+			return null;
+		}
     }
 
 
