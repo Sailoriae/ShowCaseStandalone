@@ -198,7 +198,18 @@ public class SignListener implements Listener {
         }
 
         sign.setLine(0, owner != null ? owner : "");
-        sign.setLine(1, shop.getClass().getSimpleName());
+
+        if ( shop.getClass().getSimpleName().equals("SellShop") )
+            sign.setLine(1, "VENDEUR");
+        else if ( shop.getClass().getSimpleName().equals("BuyShop") )
+            sign.setLine(1, "ACHETEUR");
+        else if ( shop.getClass().getSimpleName().equals("DisplayShop") )
+            sign.setLine(1, "AFFICHAGE");
+        else if ( shop.getClass().getSimpleName().equals("ExchangeShop") )
+            sign.setLine(1, "ECHANGE");
+        else
+            sign.setLine(1, shop.getClass().getSimpleName());
+
         sign.setLine(2, shop.isUnlimited() ? Term.SIGN_UNLIMITED.get() : ""+shop.getAmount());
         sign.setLine(3, Term.SIGN_PRICE.get(""+shop.getPrice()));
     }
