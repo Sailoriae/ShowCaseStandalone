@@ -296,6 +296,14 @@
       </dependency>
 
       <dependency>
+          <groupId>com.gmail.jameshealey1994.simpletowns</groupId>
+          <artifactId>simple-towns</artifactId>
+          <version>UNKNOWN</version>
+          <scope>system</scope>
+          <systemPath>${project.basedir}/lib/SimpleTowns.jar</systemPath>
+      </dependency>
+
+      <dependency>
           <groupId>me.minebuilders</groupId>
           <artifactId>clearlag-core</artifactId>
           <version>UNKNOWN</version>
