@@ -303,7 +303,16 @@ public class InventoryListener implements Listener {
         } else {
             
             // create the inventory
-            inventory = scs.getServer().createInventory(new ShopHolder(shop), MAX_INVENTORY_SIZE, shop.getClass().getSimpleName());
+			if ( shop.getClass().getSimpleName().equals("SellShop") )
+				inventory = scs.getServer().createInventory(new ShopHolder(shop), MAX_INVENTORY_SIZE, "Commerces : Bloc vendeur");
+			else if ( shop.getClass().getSimpleName().equals("BuyShop") )
+				inventory = scs.getServer().createInventory(new ShopHolder(shop), MAX_INVENTORY_SIZE, "Commerces : Bloc acheteur");
+			else if ( shop.getClass().getSimpleName().equals("DisplayShop") )
+				inventory = scs.getServer().createInventory(new ShopHolder(shop), MAX_INVENTORY_SIZE, "Commerces : Bloc afficheur");
+			else if ( shop.getClass().getSimpleName().equals("ExchangeShop") )
+				inventory = scs.getServer().createInventory(new ShopHolder(shop), MAX_INVENTORY_SIZE, "Commerces : Bloc échangeur");
+			else
+				inventory = scs.getServer().createInventory(new ShopHolder(shop), MAX_INVENTORY_SIZE, shop.getClass().getSimpleName());
             
             inventories    .put(shop,         inventory);
             return inventory;
