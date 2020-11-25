@@ -33,17 +33,9 @@ public class MaterialNames {
 
 
     public static String getItemName(ItemStack stack) {
-
-
-        if (stack.getItemMeta().hasDisplayName()) {
+        if (stack.getItemMeta().hasDisplayName())
             return stack.getItemMeta().getDisplayName();
-        }
-        ItemMeta itemMeta = stack.getItemMeta();
 
-        if (itemMeta.getDisplayName() != null) {
-            return itemMeta.getDisplayName();
-        } else {
-            return WordUtils.capitalize(stack.getType().toString().toLowerCase().replaceAll("_", " "));
-        }
+        return WordUtils.capitalize(stack.getType().toString().toLowerCase().replaceAll("_", " "));
     }
 }
