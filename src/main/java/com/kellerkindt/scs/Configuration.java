@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -75,6 +76,7 @@ public abstract class Configuration {
         }
 
         // null or invalid data type -> overwrite
+        ShowCaseStandalone.get().getLogger().warning("Error with the following config value, overwriting it : " + key);
         update(key, alt, true);
         return alt;
     }

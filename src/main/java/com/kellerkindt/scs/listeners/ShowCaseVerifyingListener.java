@@ -551,7 +551,11 @@ public class ShowCaseVerifyingListener implements ShowCaseListener {
             int amountHas     = ItemStackUtilities.countCompatibleItemStacks(
                     scpee.getPlayer().getInventory(),
                     scpee.getShop().getExchangeItemStack(),
-                    scs.compareItemMeta(scpee.getShop().getExchangeItemStack()));
+                    scs.compareItemMeta(scpee.getShop().getExchangeItemStack()),
+                    shop.getWorldId(),
+                    shop.getLocation(),
+                    false,
+                    null);
             
             // get the max amount
             int amountTo    = (int)(amountHas / scpee.getShop().getPrice());

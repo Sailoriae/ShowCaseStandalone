@@ -32,7 +32,6 @@ import com.kellerkindt.scs.storage.YamlShopStorage;
 import com.kellerkindt.scs.utilities.Messaging;
 import com.kellerkindt.scs.utilities.Term;
 import com.kellerkindt.scs.utilities.TermLoader;
-import io.papermc.lib.PaperLib;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -267,7 +266,6 @@ public class ShowCaseStandalone extends JavaPlugin {
         
         // done
         logger.info("Enabled");
-        PaperLib.suggestPaper(this);
     }
     
     /**

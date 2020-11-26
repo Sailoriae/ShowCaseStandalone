@@ -23,6 +23,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * @author kellerkindt <michael at kellerkindt.com>
@@ -343,7 +344,6 @@ public class SCSConfiguration extends Configuration {
                 Material.CARROT.toString(),
                 Material.WHEAT.toString(),
                 Material.PAINTING.toString(),
-                Material.SIGN.toString(),
                 Material.BLACK_BED.toString(),
                 Material.BLUE_BED.toString(),
                 Material.BROWN_BED.toString(),
@@ -462,7 +462,7 @@ public class SCSConfiguration extends Configuration {
                 Material.PISTON_HEAD.toString(),
                 Material.MOVING_PISTON.toString(),
                 Material.STICKY_PISTON.toString(),
-                Material.ROSE_RED.toString(),
+                Material.POPPY.toString(),
                 Material.ROSE_BUSH.toString(),
                 Material.SPRUCE_SAPLING.toString(),
                 Material.OAK_SAPLING.toString(),
@@ -501,8 +501,8 @@ public class SCSConfiguration extends Configuration {
                 Material.CHEST.toString(),
                 Material.SPAWNER.toString(),
                 Material.NOTE_BLOCK.toString(),
-                Material.SIGN.toString(),
-                Material.WALL_SIGN.toString()
+                Material.OAK_SIGN.toString(),
+                Material.OAK_WALL_SIGN.toString()
         ));
     }
     
