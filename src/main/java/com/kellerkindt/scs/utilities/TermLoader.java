@@ -28,7 +28,7 @@ import java.util.HashMap;
 import com.kellerkindt.scs.ShowCaseStandalone;
 
 public class TermLoader {
-    private static final String regexFilter = "(\\s+?|.+?)[ ]*:[ ]*\\\"(\\s+?|.+?)\\\"";
+    private static final String regexFilter = "(\\s+?|.+?)[ ]*:[ ]*\\\"(\\s+?|.*?)\\\"";
     private static final String regexKey    = "$1";
     private static final String regexValue  = "$2";
     private static final String encoding    = "UTF8";
