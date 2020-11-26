@@ -19,11 +19,13 @@ package com.kellerkindt.scs.utilities;
 
 import java.util.*;
 
+import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.Location;
 
 public abstract class ItemStackUtilities {
     
@@ -33,34 +35,31 @@ public abstract class ItemStackUtilities {
      * @param inventory
      * @param allowedItems
      * @param checkNBT
+     * @param world World where to drop items from inventory that are not compatible
+     * @param location Location where to drop items from inventory that are not compatible
+     * @param drop true to drop incompatible items
+     * @param uncountedAllowedItem Allowed but not counted items (Will not be dropped, made for exchange shops), can be null
      * @return
      */
-    public static int countCompatibleItemStacks (Inventory inventory, List<ItemStack> allowedItems, boolean checkNBT) {
+    public static int countCompatibleItemStacks (Inventory inventory, ItemStack allowedItem, boolean checkNBT, UUID world, Location location, boolean drop, ItemStack uncountedAllowedItem) {
         int    found    = 0;
         
         // Thru all ItemStacks in the inventory
         for (ItemStack is1 : inventory) {
             
             // Check if its allowed
-            for (ItemStack is2 : allowedItems)
-                if (itemsEqual(is1, is2, checkNBT))
-                    found += is1.getAmount();
+            if (itemsEqual(is1, allowedItem, checkNBT))
+                found += is1.getAmount();
+            else if ( drop && is1 != null ) {
+                if ( uncountedAllowedItem == null )
+                    Bukkit.getWorld(world).dropItem(location, is1);
+                else
+                    if (!itemsEqual(is1, uncountedAllowedItem, checkNBT))
+                        Bukkit.getWorld(world).dropItem(location, is1);
+            }
         }
         
         return found;
-    }
-    
-    /**
-     * Counts the Items that are compatible with the given ItemStack
-     * @param inventory
-     * @param itemStack
-     * @param checkNBT
-     * @return
-     */
-    public static int countCompatibleItemStacks (Inventory inventory, ItemStack itemStack, boolean checkNBT) {
-        List<ItemStack>    list    = new ArrayList<>();
-                        list.add(itemStack);
-        return countCompatibleItemStacks(inventory, list, checkNBT);
     }
     
     public static int countCouldAdd (Inventory inventory, ItemStack stack) {

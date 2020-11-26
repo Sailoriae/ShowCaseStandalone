@@ -188,9 +188,10 @@ public class InventoryListener implements Listener {
      * @param shop        Shop to set the counted amount
      */
     private void updateShop (Inventory inventory, Player player, Shop shop) {        
+        boolean countOnly = false;
         if (shop.isUnlimited()) {
-            // no changes on an unlimited shop
-            return;
+            // no changes on an unlimited shop, we only drop not compatible items
+            countOnly = true;
         }
         
         // no value set? -> do nothing
@@ -202,11 +203,13 @@ public class InventoryListener implements Listener {
         int[] before = amountOpened.remove(shop);
         
         // normal items
-        countAndAddItemStack(inventory, player, shop, shop.getItemStack(), before[0]);
+        if (!(shop instanceof ExchangeShop))
+            countAndAddItemStack(inventory, player, shop, shop.getItemStack(), before[0], countOnly, true, null);
         
         // exchange items
-        if (shop instanceof ExchangeShop) {
-            countAndAddItemStack(inventory, player, shop, ((ExchangeShop)shop).getExchangeItemStack(), before[1]);
+        else {
+            countAndAddItemStack(inventory, player, shop, shop.getItemStack(), before[0], countOnly, true, ((ExchangeShop)shop).getExchangeItemStack());
+            countAndAddItemStack(inventory, player, shop, ((ExchangeShop)shop).getExchangeItemStack(), before[1], countOnly, false, shop.getItemStack()); // Do not re-drop to avoid dropping twice
         }
     }
     
@@ -217,13 +220,18 @@ public class InventoryListener implements Listener {
      * @param shop
      * @param stack
      * @param before
+     * @param countOnly Only count, which means only drops not compatible items, no shop update
+     * @param drop Drop not compatible items (With stack and uncountedAllowed)
+     * @param uncountedAllowed Stack to be allowed (For exchange shops), can be null
      */
-    private void countAndAddItemStack (Inventory inventory, Player player, Shop shop, ItemStack stack, int before) {
+    private void countAndAddItemStack (Inventory inventory, Player player, Shop shop, ItemStack stack, int before, boolean countOnly, boolean drop, ItemStack uncountedAllowed) {
         int            counted        = 0;
         int            toAdd        = 0;
         
         // count the normal items
-        counted = ItemStackUtilities.countCompatibleItemStacks(inventory, stack, scs.compareItemMeta(stack));
+        counted = ItemStackUtilities.countCompatibleItemStacks(inventory, stack, scs.compareItemMeta(stack), shop.getWorldId(), shop.getLocation(), drop, uncountedAllowed);
+        
+        if ( countOnly ) return;
         
         // how many to add
         toAdd = (counted - before);
