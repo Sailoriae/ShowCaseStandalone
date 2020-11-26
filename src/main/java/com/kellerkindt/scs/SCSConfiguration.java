@@ -23,6 +23,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * @author kellerkindt <michael at kellerkindt.com>
