@@ -77,7 +77,7 @@ public class SimpleTownsListener implements Listener {
                     isAllowed = player.hasPermission(STPermission.BUILD_WILDERNESS.getPermission());
                 }
             } else {
-                isAllowed = town.hasMember(player.getName()) && player.hasPermission(STPermission.BUILD_TOWNS.getPermission());
+                isAllowed = town.hasMember(player.getUniqueId()) && player.hasPermission(STPermission.BUILD_TOWNS.getPermission());
             }
         }
 
