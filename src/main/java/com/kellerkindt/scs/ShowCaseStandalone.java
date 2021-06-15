@@ -1028,12 +1028,6 @@ public class ShowCaseStandalone extends JavaPlugin {
             registerEvents(new WorldGuardListener(this, plugin));
             logger.info("Hooked into WorldGuard");
         }
-
-        // SimpleTowns
-        if (className.equals("com.gmail.jameshealey1994.simpletowns.SimpleTowns")) {
-            registerEvents(new SimpleTownsListener(this, plugin));
-            logger.info("Hooked into SimpleTowns");
-        }
         
         
         // Vault
